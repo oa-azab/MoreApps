@@ -1,15 +1,29 @@
 package me.omarahmed.moreappslib.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_more_apps.*
 import me.omarahmed.moreappslib.R
+import me.omarahmed.moreappslib.databinding.FragmentMoreAppsBinding
 import me.omarahmed.moreappslib.model.App
 import me.omarahmed.moreappslib.util.goToPlayStore
 
 class MoreAppsFragment : Fragment(R.layout.fragment_more_apps) {
+
+    private var _binding: FragmentMoreAppsBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMoreAppsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,8 +34,13 @@ class MoreAppsFragment : Fragment(R.layout.fragment_more_apps) {
         val moreAppsAdapter = MoreAppsAdapter(apps) { app ->
             context?.goToPlayStore(app.id)
         }
-        rvMoreApps.layoutManager = LinearLayoutManager(requireContext())
-        rvMoreApps.adapter = moreAppsAdapter
+        binding.rvMoreApps.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvMoreApps.adapter = moreAppsAdapter
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
     companion object {

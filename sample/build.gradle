@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 
 android {
-    compileSdkVersion 29
 
     defaultConfig {
         applicationId "me.omarahmed.sample"
         minSdkVersion 21
-        targetSdkVersion 29
+        compileSdkVersion android_compile_sdk_version
+        targetSdkVersion android_target_sdk_version
         versionCode 1
         versionName "1.0"
 
@@ -25,7 +25,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation project(':MoreAppsLib')
 
